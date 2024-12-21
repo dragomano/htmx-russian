@@ -1,0 +1,30 @@
+---
+title: Метод htmx.off()
+description: Описание метода htmx.off() в htmx
+origin: https://htmx.org/api/#off
+sidebar:
+  label: htmx.off()
+---
+
+Удаляет слушатель события с элемента.
+
+## Параметры
+
+* `eventName` — имя события для удаления слушателя
+* `listener` — слушатель для удаления
+
+или
+
+* `target` — элемент, с которого нужно удалить слушатель
+* `eventName` — имя события для удаления слушателя
+* `listener` — слушатель для удаления
+
+## Пример
+
+```js wrap
+// удаляем слушатель клика с элемента body
+htmx.off("click", myEventListener);
+
+// удаляем слушатель клика с указанного div
+htmx.off("#my-div", "click", myEventListener)
+```
