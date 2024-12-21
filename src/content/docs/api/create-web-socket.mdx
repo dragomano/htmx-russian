@@ -1,0 +1,22 @@
+---
+title: Свойство htmx.createWebSocket()
+description: Описание свойства htmx.createWebSocket() в htmx
+origin: https://htmx.org/api/#createWebSocket
+sidebar:
+  label: htmx.createWebSocket()
+---
+
+Свойство, используемое для создания новых [веб-сокетов](https://github.com/bigskysoftware/htmx-extensions/blob/main/src/ws/README.md). Его можно обновить для предоставления пользовательской настройки WebSocket.
+
+## Значение
+
+`func(url)` — функция, которая принимает строку URL и возвращает новый `WebSocket`
+
+## Пример
+
+```js
+// переопределяем WebSocket для использования конкретного протокола
+htmx.createWebSocket = function(url) {
+  return new WebSocket(url, ['wss']);
+};
+```
