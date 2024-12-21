@@ -1,0 +1,21 @@
+---
+title: Метод htmx.onLoad()
+description: Описание метода htmx.onLoad() в htmx
+origin: https://htmx.org/api/#onLoad
+sidebar:
+  label: htmx.onLoad()
+---
+
+Добавляет обратный вызов для события `htmx:load`. Это можно использовать для обработки нового контента, например, для инициализации контента с помощью библиотеки JavaScript.
+
+## Параметры
+
+* `callback(elt)` — функция обратного вызова, которая будет вызвана для нового загруженного контента
+
+## Пример
+
+```js
+htmx.onLoad(function (elt) {
+  MyLibrary.init(elt);
+})
+```
