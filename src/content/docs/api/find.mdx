@@ -1,0 +1,28 @@
+---
+title: Метод htmx.find()
+description: Описание метода htmx.find() в htmx
+origin: https://htmx.org/api/#find
+sidebar:
+  label: htmx.find()
+---
+
+Находит элемент, соответствующий селектору.
+
+## Параметры
+
+* `selector` — селектор для поиска
+
+или
+
+* `elt` — корневой элемент, в котором следует искать совпадающий элемент, включая его
+* `selector` — селектор для поиска
+
+## Пример
+
+```js
+// ищем div с id my-div
+var div = htmx.find("#my-div")
+
+// ищем div с id another-div внутри этого div
+var anotherDiv = htmx.find(div, "#another-div")
+```
