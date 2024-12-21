@@ -1,0 +1,25 @@
+---
+title: Метод htmx.parseInterval()
+description: Описание метода htmx.parseInterval() в htmx
+origin: https://htmx.org/api/#parseInterval
+sidebar:
+  label: htmx.parseInterval()
+---
+
+Парсит строку интервала в соответствии с тем, как это делает htmx. Полезно для плагинов, которые имеют атрибуты, связанные со временем.
+
+Предостережение: принимает целое число, за которым следует либо `s` (секунды), либо `ms` (миллисекунды). Все остальные значения обрабатываются с помощью `parseFloat`.
+
+## Параметры
+
+* `str` — интервал времени
+
+## Пример
+
+```js
+// возвращает 3000
+var milliseconds = htmx.parseInterval("3s");
+
+// возвращает 3 - Осторожно
+var milliseconds = htmx.parseInterval("3m");
+```
