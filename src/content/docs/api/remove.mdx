@@ -1,0 +1,28 @@
+---
+title: Метод htmx.remove()
+description: Описание метода htmx.remove() в htmx
+origin: https://htmx.org/api/#remove
+sidebar:
+  label: htmx.remove()
+---
+
+Удаляет элемент из DOM.
+
+## Параметры
+
+* `elt` — элемент для удаления
+
+или
+
+* `elt` — элемент для удаления
+* `delay` — задержка (в миллисекундах) перед удалением элемента
+
+## Пример
+
+```js
+// удаляем my-div из DOM
+htmx.remove(htmx.find("#my-div"));
+
+// удаляем my-div из DOM после задержки в 2 секунды
+htmx.remove(htmx.find("#my-div"), 2000);
+```
