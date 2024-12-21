@@ -1,0 +1,21 @@
+---
+title: Метод htmx.closest()
+description: Описание метода htmx.closest() в htmx
+origin: https://htmx.org/api/#closest
+sidebar:
+  label: htmx.closest()
+---
+
+Находит ближайший подходящий элемент в родительской иерархии заданного элемента, включая сам элемент.
+
+## Параметры
+
+* `elt` — элемент, с которого начинается поиск селектора
+* `selector` — селектор для поиска
+
+## Пример
+
+```js
+// находим ближайший оборачивающий div элемента с id 'demo'
+htmx.closest(htmx.find('#demo'), 'div');
+```
