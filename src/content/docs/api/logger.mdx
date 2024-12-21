@@ -1,0 +1,23 @@
+---
+title: Свойство htmx.logger()
+description: Описание свойства htmx.logger() в htmx
+origin: https://htmx.org/api/#logger
+sidebar:
+  label: htmx.logger()
+---
+
+Логгер, который htmx использует для записи информации.
+
+## Значение
+
+`func(elt, eventName, detail)` — функция, которая принимает элемент, имя события и детали события и записывает их в лог
+
+## Пример
+
+```js
+htmx.logger = function(elt, event, data) {
+  if (console) {
+    console.log("ИНФОРМАЦИЯ:", event, elt, data);
+  }
+}
+```
