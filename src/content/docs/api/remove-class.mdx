@@ -1,0 +1,30 @@
+---
+title: Метод htmx.removeClass()
+description: Описание метода htmx.removeClass() в htmx
+origin: https://htmx.org/api/#removeClass
+sidebar:
+  label: htmx.removeClass()
+---
+
+Удаляет класс у заданного элемента.
+
+## Параметры
+
+* `elt` — элемент, у которого нужно удалить класс
+* `class` — класс для удаления
+
+или
+
+* `elt` — элемент, у которого нужно удалить класс
+* `class` — класс для удаления
+* `delay` — задержка (в миллисекундах) перед удалением класса
+
+## Пример
+
+```js
+// удаляем .myClass у элемента my-div
+htmx.removeClass(htmx.find("#my-div"), "myClass");
+
+// удаляем .myClass у элемента my-div через 6 секунд
+htmx.removeClass(htmx.find("#my-div"), "myClass", 6000);
+```
