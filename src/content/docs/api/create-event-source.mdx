@@ -1,0 +1,22 @@
+---
+title: Свойство htmx.createEventSource()
+description: Описание свойства htmx.createEventSource() в htmx
+origin: https://htmx.org/api/#createEventSource
+sidebar:
+  label: htmx.createEventSource()
+---
+
+Свойство, используемое для создания новых источников событий, отправляемых сервером ([Server Sent Events](https://github.com/bigskysoftware/htmx-extensions/blob/main/src/sse/README.md)). Его можно обновить для предоставления пользовательской настройки SSE.
+
+## Значение
+
+`func(url)` — функция, которая принимает строку URL и возвращает новый `EventSource`
+
+## Пример
+
+```js
+// переопределяем источники событий SSE, чтобы не использовать учётные данные
+htmx.createEventSource = function(url) {
+  return new EventSource(url, {withCredentials:false});
+};
+```
