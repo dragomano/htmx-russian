@@ -1,0 +1,30 @@
+---
+title: Метод htmx.addClass()
+description: Описание метода htmx.addClass() в htmx
+origin: https://htmx.org/api/#addClass
+sidebar:
+  label: htmx.addClass()
+---
+
+Добавляет класс к заданному элементу.
+
+## Параметры
+
+* `elt` — элемент, к которому нужно добавить класс
+* `class` — класс для добавления
+
+или
+
+* `elt` — элемент, к которому нужно добавить класс
+* `class` — класс для добавления
+* `delay` — задержка (в миллисекундах) перед добавлением класса
+
+## Пример
+
+```js
+// добавляем класс 'myClass' к элементу с id 'demo'
+htmx.addClass(htmx.find('#demo'), 'myClass');
+
+// добавляем класс 'myClass' к элементу с id 'demo' через 1 секунду
+htmx.addClass(htmx.find('#demo'), 'myClass', 1000);
+```
