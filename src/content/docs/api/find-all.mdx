@@ -1,0 +1,28 @@
+---
+title: Метод htmx.findAll()
+description: Описание метода htmx.findAll() в htmx
+origin: https://htmx.org/api/#findAll
+sidebar:
+  label: htmx.findAll()
+---
+
+Находит все элементы, соответствующие селектору.
+
+## Параметры
+
+* `selector` — селектор для поиска
+
+или
+
+* `elt` — корневой элемент, в котором следует искать совпадающий элемент, включая его
+* `selector` — селектор для поиска
+
+## Пример
+
+```js
+// ищем все div
+var allDivs = htmx.findAll("div")
+
+// ищем все параграфы внутри указанного div
+var allParagraphsInMyDiv = htmx.findAll(htmx.find("#my-div"), "p")
+```
