@@ -1,0 +1,25 @@
+---
+title: Метод htmx.defineExtension()
+description: Описание метода htmx.defineExtension() в htmx
+origin: https://htmx.org/api/#defineExtension
+sidebar:
+  label: htmx.defineExtension()
+---
+
+Определяет новое [расширение](https://htmx.org/extensions) htmx.
+
+## Параметры
+
+* `name` — имя расширения
+* `ext` — определение расширения
+
+## Пример
+
+```js
+// определяем простое расширение, которое записывает имена всех вызванных событий
+htmx.defineExtension("silly", {
+  onEvent : function(name, evt) {
+    console.log("Событие " + name + " сработало!")
+  }
+});
+```
