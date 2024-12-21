@@ -1,0 +1,35 @@
+---
+title: Метод htmx.on()
+description: Описание метода htmx.on() в htmx
+origin: https://htmx.org/api/#on
+sidebar:
+  label: htmx.on()
+---
+
+Добавляет слушатель события к элементу.
+
+## Параметры
+
+* `eventName` — имя события для добавления слушателя
+* `listener` — слушатель для добавления
+* `options` — объект [options](https://developer.mozilla.org/ru/docs/Web/API/EventTarget/addEventListener#options) (или логическое значение [useCapture](https://developer.mozilla.org/ru/docs/Web/API/EventTarget/addEventListener#usecapture)), который можно добавить к слушателю события (необязательно)
+
+или
+
+* `target` — элемент для добавления слушателя
+* `eventName` — имя события для добавления слушателя
+* `listener` — слушатель для добавления
+* `options` — объект [options](https://developer.mozilla.org/ru/docs/Web/API/EventTarget/addEventListener#options) (или логическое значение [useCapture](https://developer.mozilla.org/ru/docs/Web/API/EventTarget/addEventListener#usecapture)), который можно добавить к слушателю события (необязательно)
+
+## Пример
+
+```js wrap
+// добавляем слушатель клика для элемента body
+var myEventListener = htmx.on("click", function(evt) { console.log(evt); });
+
+// добавляем слушатель клика для указанного div
+var myEventListener = htmx.on("#my-div", "click", function(evt) { console.log(evt); });
+
+// добавляем слушатель клика для указанного div, который должен быть вызван только один раз
+var myEventListener = htmx.on("#my-div", "click", function(evt) { console.log(evt); }, { once: true });
+```
