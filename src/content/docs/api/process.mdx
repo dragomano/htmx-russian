@@ -1,0 +1,21 @@
+---
+title: Метод htmx.process()
+description: Описание метода htmx.process() в htmx
+origin: https://htmx.org/api/#process
+sidebar:
+  label: htmx.process()
+---
+
+Обрабатывает новый контент, активируя поведение htmx. Это может быть полезно, если у вас есть контент, который добавляется в DOM вне обычного цикла запросов htmx, но вы всё равно хотите, чтобы атрибуты htmx работали.
+
+## Параметры
+
+* `elt` — элемент для обработки
+
+## Пример
+
+```js
+document.body.innerHTML = "<div hx-get='/example'>Получить данные!</div>"
+// обрабатываем вновь добавленный контент
+htmx.process(document.body);
+```
