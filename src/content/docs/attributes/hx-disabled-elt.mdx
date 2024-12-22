@@ -1,0 +1,42 @@
+---
+title: Атрибут hx-disabled-elt
+description: Описание атрибута hx-disabled-elt в htmx
+origin: https://htmx.org/attributes/hx-disabled-elt/
+sidebar:
+  label: hx-disabled-elt
+---
+
+Атрибут `hx-disabled-elt` позволяет вам указать элементы, к которым будет добавлен атрибут `disabled` на время запроса. Значением этого атрибута может быть:
+
+- CSS-запрос селектора элемента, который нужно отключить.
+- `this` для отключения самого элемента.
+- `closest <CSS selector>` — находит [ближайший](https://developer.mozilla.org/ru/docs/Web/API/Element/closest) родительский элемент или сам элемент, который соответствует заданному CSS-селектору (например, `closest fieldset` отключит ближайший к элементу `fieldset`).
+- `find <CSS selector>` — находит первый дочерний элемент, который соответствует заданному CSS-селектору.
+- `next` — ссылается на [element.nextElementSibling](https://developer.mozilla.org/ru/docs/Web/API/Element/nextElementSibling).
+- `next <CSS selector>` — просматривает DOM вперед для первого элемента, который соответствует заданному CSS-селектору (например, `next button` отключит ближайший следующий элемент-кнопку).
+- `previous` — ссылается на [element.previousElementSibling](https://developer.mozilla.org/ru/docs/Web/API/Element/previousElementSibling).
+- `previous <CSS selector>` — просматривает DOM назад для первого элемента, который соответствует заданному CSS-селектору (например, `previous input` отключит ближайший предыдущий элемент-ввод).
+
+Вот пример с кнопкой, которая будет отключать саму себя во время запроса:
+
+```html wrap
+<button hx-post="/example" hx-disabled-elt="this">
+  Опубликовать!
+</button>
+```
+
+Когда запрос выполняется, это приведет к тому, что кнопка будет помечена атрибутом [disabled](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled), что предотвратит дальнейшие нажатия.
+
+Атрибут `hx-disabled-elt` также поддерживает указание нескольких CSS-селекторов, разделённых запятыми, для отключения нескольких элементов во время запроса. Вот пример, который отключает кнопки и текстовые поля ввода определённой формы во время запроса:
+
+
+```html wrap
+<form hx-post="/example" hx-disabled-elt="find input[type='text'], find button">
+  <input type="text" placeholder="Введите текст...">
+  <button type="submit">Отправить</button>
+</form>
+```
+
+## Примечание
+
+- `hx-disabled-elt` наследуется и может быть размещен на родительском элементе.
