@@ -1,0 +1,21 @@
+---
+title: Метод htmx.toggleClass()
+description: Описание метода htmx.toggleClass() в htmx
+origin: https://htmx.org/api/#toggleClass
+sidebar:
+  label: htmx.toggleClass()
+---
+
+Переключает указанный класс у элемента.
+
+## Параметры
+
+* `elt` — элемент, у которого нужно переключить класс
+* `class` — класс для переключения
+
+## Пример
+
+```js
+// переключаем класс selected у элемента с id tab2
+htmx.toggleClass(htmx.find("#tab2"), "selected");
+```
