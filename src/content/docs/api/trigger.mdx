@@ -1,0 +1,22 @@
+---
+title: Метод htmx.trigger()
+description: Описание метода htmx.trigger() в htmx
+origin: https://htmx.org/api/#trigger
+sidebar:
+  label: htmx.trigger()
+---
+
+Вызывает заданное событие на элементе.
+
+## Параметры
+
+* `elt` — элемент, на котором нужно вызвать событие
+* `name` — имя события, которое нужно вызвать
+* `detail` — детали события
+
+## Пример
+
+```js
+// вызываем событие myEvent на #tab2 с ответом 42
+htmx.trigger("#tab2", "myEvent", {answer:42});
+```
