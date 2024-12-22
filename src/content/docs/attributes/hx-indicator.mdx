@@ -1,0 +1,73 @@
+---
+title: Атрибут hx-indicator
+description: Описание атрибута hx-indicator в htmx
+origin: https://htmx.org/attributes/hx-indicator/
+sidebar:
+  label: hx-indicator
+---
+
+Атрибут `hx-indicator` позволяет вам указать элемент, к которому будет добавлен класс `htmx-request` на время запроса. Это можно использовать для отображения спиннеров или индикаторов прогресса, пока запрос выполняется.
+
+Значение этого атрибута — это CSS-запрос селектора элемента или элементов, к которым нужно применить класс, или ключевое слово [closest](https://developer.mozilla.org/ru/docs/Web/API/Element/closest), за которым следует CSS-селектор, который найдет ближайший родительский элемент или сам элемент, соответствующий заданному CSS-селектору (например, `closest tr`).
+
+Вот пример со спиннером рядом с кнопкой:
+
+```html wrap
+<div>
+  <button hx-post="/example" hx-indicator="#spinner">
+    Опубликовать!
+  </button>
+  <img  id="spinner" class="htmx-indicator" src="/img/bars.svg"/>
+</div>
+```
+
+Когда запрос выполняется, это приведет к добавлению класса `htmx-request` к изображению `#spinner`. У изображения также есть класс `htmx-indicator`, определяющий переход непрозрачности, позволяющий показывать спиннер:
+
+```css
+.htmx-indicator{
+  opacity:0;
+  transition: opacity 500ms ease-in;
+}
+.htmx-request .htmx-indicator{
+  opacity:1;
+}
+.htmx-request.htmx-indicator{
+  opacity:1;
+}
+```
+
+Если вы предпочитаете другой эффект для отображения спиннера, вы можете определить и использовать свой собственный CSS для индикатора. Вот пример, который использует свойство `display` вместо `opacity` (обратите внимание, что мы используем `my-indicator` вместо `htmx-indicator`):
+
+
+```css
+.my-indicator{
+  display:none;
+}
+.htmx-request .my-indicator{
+  display:inline;
+}
+.htmx-request.my-indicator{
+  display:inline;
+}
+```
+
+Обратите внимание, что целевым элементом селектора `hx-indicator` не обязательно должен быть именно тот элемент, который вы хотите показать: это может быть любой элемент в родительской иерархии индикатора.
+
+Наконец, имейте в виду, что класс `htmx-request` по умолчанию добавляется к элементу, вызывающему запрос, поэтому вы можете разместить индикатор внутри этого элемента и не нужно явно указывать его с помощью атрибута `hx-indicator`:
+
+```html wrap
+<button hx-post="/example">
+  <img class="htmx-indicator" src="/img/bars.svg"/>
+</button>
+```
+
+## Примечания
+
+- `hx-indicator` наследуется и может быть размещен на родительском элементе.
+- В отсутствие явного индикатора класс `htmx-request` будет добавлен к элементу, инициирующему запрос.
+- Если вы хотите использовать свой собственный CSS, но при этом сохранить `htmx-indicator` в качестве имени класса, вам нужно отключить `includeIndicatorStyles`. См. раздел [Конфигурация](/config). Самый простой способ — добавить это в `<head>` вашего HTML:
+
+
+```html wrap
+<meta name="htmx-config" content='{"includeIndicatorStyles": false}'>
+```
