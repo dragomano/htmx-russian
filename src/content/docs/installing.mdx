@@ -1,0 +1,97 @@
+---
+title: Установка
+description: Как установить htmx
+---
+
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+import { PackageManagers } from 'starlight-package-managers';
+
+Htmx — это библиотека JavaScript, не имеющая зависимостей и ориентированная на браузеры. Это означает, что использование htmx так же просто, как добавление тега `<script>` в заголовок вашего документа. Нет необходимости в системе сборки для её использования.
+
+## Через CDN
+
+Самый быстрый способ начать работу с htmx — загрузить его через CDN. Вы можете просто добавить это в ваш тег head и начать:
+
+<Tabs>
+    <TabItem label="unpkg">
+    ```html wrap
+    <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+    ```
+    </TabItem>
+    <TabItem label="jsDelivr">
+    ```html wrap
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.4/dist/htmx.min.js"></script>
+    ```
+    </TabItem>
+</Tabs>
+
+Также доступна неминифицированная версия:
+
+<Tabs>
+    <TabItem label="unpkg">
+    ```html wrap
+    <script src="https://unpkg.com/htmx.org@2.0.4/dist/htmx.js" integrity="sha384-oeUn82QNXPuVkGCkcrInrS1twIxKhkZiFfr2TdiuObZ3n3yIeMiqcRzkIcguaof1" crossorigin="anonymous"></script>
+    ```
+    </TabItem>
+    <TabItem label="jsDelivr">
+    ```html wrap
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.4/dist/htmx.js"></script>
+    ```
+    </TabItem>
+</Tabs>
+
+Хотя подход с использованием CDN очень прост, вам может понадобиться рассмотреть возможность не использовать CDN в продакшен-среде.
+
+## Локальная копия
+
+Следующий по простоте способ установки htmx — это просто скопировать скрипт в ваш проект.
+
+Скачайте `htmx.min.js` с [unpkg.com](https://unpkg.com/htmx.org@2.0.4/dist/htmx.min.js) и добавьте его в соответствующий каталог вашего проекта, а затем подключите в нужном места с помощью тега `<script>`:
+
+```html wrap
+<script src="/path/to/htmx.min.js"></script>
+```
+
+## Менеджер пакетов
+
+В проектах, использующих сборку, можно установить htmx через npm:
+
+<PackageManagers pkg="htmx.org@2.0.4" />
+
+После установки вам потребуется использовать соответствующие инструменты для работы с `node_modules/htmx.org/dist/htmx.js` (или `.min.js`). Например, вы можете объединить htmx с расширениями и кодом, специфичными для вашего проекта.
+
+## Webpack
+
+Если вы используете webpack для управления своим кодом:
+
+<Steps>
+
+1. Установите htmx через ваш любимый пакетный менеджер.
+
+2. Добавьте импорт в ваш `index.js`:
+
+    ```js
+    import 'htmx.org';
+    ```
+</Steps>
+
+Если вы хотите использовать глобальную переменную `htmx` (рекомендуется), вам нужно добавить её в область видимости `window`:
+
+<Steps>
+
+3. Создайте пользовательский JS файл.
+
+4. Импортируйте этот файл в ваш `index.js` (под импортом из шага 2):
+
+    ```js
+    import 'path/to/my_custom.js';
+    ```
+5. Затем добавьте этот код в файл:
+
+    ```js
+    window.htmx = require('htmx.org');
+    ```
+
+6. Наконец, пересоберите ваш пакет.
+
+</Steps>
