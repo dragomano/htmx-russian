@@ -1,0 +1,41 @@
+---
+title: Атрибут hx-target
+description: Описание атрибута hx-target в htmx
+origin: https://htmx.org/attributes/hx-target/
+sidebar:
+  label: hx-target
+---
+
+Атрибут `hx-target` позволяет вам выбрать элемент для замены, отличный от элемента, отправляющего AJAX-запрос. Значением этого атрибута может быть:
+
+* CSS-селектор элемента, на который нужно нацелиться.
+* `this`, что указывает на то, что элемент, на котором находится атрибут `hx-target`, является целевым.
+* `closest <CSS селектор>`, который найдет [ближайший](https://developer.mozilla.org/ru/docs/Web/API/Element/closest) родительский элемент или сам элемент, соответствующий заданному CSS-селектору (например, `closest tr` будет нацеливаться на строку таблицы, ближайшую к элементу).
+* `find <CSS селектор>`, который найдет первого дочернего потомка, соответствующего заданному CSS-селектору.
+* `next`, который ссылается на элемент [element.nextElementSibling](https://developer.mozilla.org/ru/docs/Web/API/Element/nextElementSibling).
+* `next <CSS селектор>`, который будет сканировать DOM вперед для первого элемента, соответствующего заданному CSS-селектору. (Например, `next .error` будет нацеливаться на ближайший следующий элемент-сосед с классом `error`).
+* `previous`, который ссылается на элемент [element.previousElementSibling](https://developer.mozilla.org/ru/docs/Web/API/Element/previousElementSibling).
+* `previous <CSS селектор>`, который будет сканировать DOM назад для первого элемента, соответствующего заданному CSS-селектору. (Например, `previous .error` будет нацеливаться на ближайший предыдущий элемент-сосед с классом `error`).
+
+Вот пример, который нацеливается на div:
+
+```html wrap
+<div>
+  <div id="response-div"></div>
+  <button hx-post="/register" hx-target="#response-div" hx-swap="beforeend">
+      Зарегистрироваться!
+  </button>
+</div>
+```
+
+Ответ с URL `/register` будет добавлен в `div` с id `response-div`.
+
+В этом примере используется `hx-target="this"`, чтобы создать ссылку, которая обновляет саму себя при нажатии:
+
+```html
+<a hx-post="/new-link" hx-target="this" hx-swap="outerHTML">Новая ссылка</a>
+```
+
+## Примечание
+
+Атрибут `hx-target` наследуется и может быть размещён на родительском элементе.
