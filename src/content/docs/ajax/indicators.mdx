@@ -1,0 +1,52 @@
+---
+title: Индикаторы запроса
+description: Изучаем индикаторы запроса в htmx
+origin: https://htmx.org/docs/#indicators
+tableOfContents: false
+sidebar:
+  order: 3
+---
+
+Когда выполняется AJAX-запрос, часто полезно уведомить пользователя о том, что что-то происходит, так как браузер не предоставит им никакой обратной связи. Вы можете достичь этого в htmx, используя класс `htmx-indicator`.
+
+Класс `htmx-indicator` определен так, что непрозрачность (`opacity`) любого элемента с этим классом по умолчанию равна 0, что делает его невидимым, но присутствующим в DOM.
+
+Когда htmx выполняет запрос, он добавляет класс `htmx-request` к элементу (либо запрашивающему элементу, либо другому элементу, если это указано). Класс `htmx-request` заставит дочерний элемент с классом `htmx-indicator` перейти к `opacity: 1`, показывая индикатор.
+
+```html wrap
+<button hx-get="/click">
+  Нажми меня!
+  <img class="htmx-indicator" src="/spinner.gif">
+</button>
+```
+
+Здесь у нас есть кнопка. Когда на нее нажимают, к ней будет добавлен класс `htmx-request`, который откроет элемент с GIF-анимацией спиннера. (В последнее время мне нравятся [SVG-спиннеры](http://samherbert.net/svg-loaders/).)
+
+Хотя класс `htmx-indicator` использует непрозрачность для скрытия и показа индикатора прогресса, если вы предпочитаете другой механизм, вы можете создать свою собственную CSS-анимацию следующим образом:
+
+```css
+.htmx-indicator{
+  display:none;
+}
+.htmx-request .htmx-indicator{
+  display:inline;
+}
+.htmx-request.htmx-indicator{
+  display:inline;
+}
+```
+
+Если вы хотите, чтобы класс `htmx-request` был добавлен к другому элементу, вы можете использовать атрибут [hx-indicator](/attributes/hx-indicator) с CSS-селектором для этого:
+
+```html wrap
+<div>
+  <button hx-get="/click" hx-indicator="#indicator">
+    Нажми меня!
+  </button>
+  <img id="indicator" class="htmx-indicator" src="/spinner.gif"/>
+</div>
+```
+
+Здесь мы явно указываем индикатор по идентификатору. Обратите внимание, что мы также могли бы разместить класс на родительском div и получить тот же эффект.
+
+Вы также можете добавить атрибут `disabled` к элементам на время запроса, используя атрибут [hx-disabled-elt](/attributes/hx-disabled-elt).
