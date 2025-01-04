@@ -1,0 +1,51 @@
+---
+title: Синхронизация
+description: Синхронизация в htmx
+origin: https://htmx.org/docs/#synchronization
+sidebar:
+  order: 6
+---
+
+Часто требуется координировать запросы между двумя элементами. Например, вы можете захотеть, чтобы запрос от одного элемента заменял запрос другого элемента или ожидал завершения запроса другого элемента.
+
+htmx предоставляет атрибут [hx-sync](/attributes/hx-sync/), который помогает вам в этом.
+
+Рассмотрим ситуацию гонки между отправкой формы и запросом валидации отдельного поля ввода в следующем HTML:
+
+```html
+<form hx-post="/store">
+  <input id="title" name="title" type="text"
+    hx-post="/validate"
+    hx-trigger="change">
+  <button type="submit">Отправить</button>
+</form>
+```
+
+Без использования `hx-sync`, при заполнении поля ввода и немедленной отправке формы запускаются два параллельных запроса к `/validate` и `/store`.
+
+Использование `hx-sync="closest form:abort"` на поле ввода будет отслеживать запросы на форме и прерывать запрос поля ввода, если запрос формы уже присутствует или начинается, пока запрос поля ввода находится в процессе выполнения:
+
+```html
+<form hx-post="/store">
+    <input id="title" name="title" type="text"
+        hx-post="/validate"
+        hx-trigger="change"
+        hx-sync="closest form:abort">
+    <button type="submit">Отправить</button>
+</form>
+```
+
+Это решает проблему синхронизации между двумя элементами декларативным способом.
+
+htmx также поддерживает программный способ отмены запросов: вы можете отправить событие `htmx:abort` на элемент, чтобы отменить любые выполняющиеся запросы:
+
+```html
+<button id="request-button" hx-post="/example">
+    Отправить запрос
+</button>
+<button onclick="htmx.trigger('#request-button', 'htmx:abort')">
+    Отменить запрос
+</button>
+```
+
+Больше примеров и подробностей можно найти на [странице атрибута `hx-sync`](/attributes/hx-sync/)
