@@ -27,11 +27,11 @@ htmx предоставляет атрибут [hx-sync](/attributes/hx-sync/), 
 
 ```html
 <form hx-post="/store">
-    <input id="title" name="title" type="text"
-        hx-post="/validate"
-        hx-trigger="change"
-        hx-sync="closest form:abort">
-    <button type="submit">Отправить</button>
+  <input id="title" name="title" type="text"
+    hx-post="/validate"
+    hx-trigger="change"
+    hx-sync="closest form:abort">
+  <button type="submit">Отправить</button>
 </form>
 ```
 
@@ -41,10 +41,10 @@ htmx также поддерживает программный способ о�
 
 ```html
 <button id="request-button" hx-post="/example">
-    Отправить запрос
+  Отправить запрос
 </button>
 <button onclick="htmx.trigger('#request-button', 'htmx:abort')">
-    Отменить запрос
+  Отменить запрос
 </button>
 ```
 
