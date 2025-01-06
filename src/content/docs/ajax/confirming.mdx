@@ -1,0 +1,42 @@
+---
+title: Подтверждение запросов
+description: Нюансы подтверждения запросов в htmx
+origin: https://htmx.org/docs/#confirming
+sidebar:
+  order: 10
+---
+
+Часто вам потребуется подтверждать действие перед отправкой запроса. htmx поддерживает атрибут [hx-confirm](/attributes/hx-confirm/), который позволяет вам подтвердить действие с помощью простого диалогового окна JavaScript:
+
+```html wrap
+<button hx-delete="/account" hx-confirm="Вы действительно хотите удалить свой аккаунт?">
+  Удалить мою учётку
+</button>
+```
+
+Используя события, вы можете реализовать более сложные диалоговые окна подтверждения. Пример [confirm](https://htmx.org/examples/confirm/) показывает, как использовать библиотеку [sweetalert2](https://sweetalert2.github.io/) для подтверждения действий htmx.
+
+## Использование событий
+
+Другой вариант для подтверждения — это использование события [`htmx:confirm`](https://htmx.org/events/#htmx:confirm). Это событие срабатывает на *каждом* триггере запроса (не только на элементах с атрибутом `hx-confirm`) и может быть использовано для реализации асинхронного подтверждения запроса.
+
+Вот пример использования оповещения [sweet alert](https://sweetalert.js.org/guides/) на любом элементе с атрибутом `confirm-with-sweet-alert='true'`:
+
+```javascript wrap
+document.body.addEventListener('htmx:confirm', function (evt) {
+  if (evt.target.matches("[confirm-with-sweet-alert='true']")) {
+    evt.preventDefault();
+    swal({
+      title: "Уверены?",
+      text: "Вы уверены, что уверены?",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((confirmed) => {
+      if (confirmed) {
+        evt.detail.issueRequest();
+      }
+    });
+  }
+});
+```
