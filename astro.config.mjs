@@ -8,8 +8,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://dragomano.github.io/htmx-russian',
-  base: '/htmx-russian/',
+  site: 'https://htmx.dragomano.ru',
   integrations: [
     starlight({
       plugins: [
@@ -74,8 +73,12 @@ export default defineConfig({
           },
         },
         {
+          label: 'Запросы и ответы',
+          link: 'requests',
+        },
+        {
           label: 'Атрибуты',
-          collapsed: false,
+          collapsed: true,
           autogenerate: {
             directory: 'attributes',
           },
