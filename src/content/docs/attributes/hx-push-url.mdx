@@ -1,0 +1,41 @@
+---
+title: Атрибут hx-push-url
+description: Описание атрибута hx-push-url в htmx
+origin: https://htmx.org/attributes/hx-push-url/
+sidebar:
+  label: hx-push-url
+---
+
+Атрибут `hx-push-url` позволяет добавлять URL в [историю текущей сессии](https://developer.mozilla.org/ru/docs/Web/API/History_API) браузера. Это создает новую запись в истории, позволяя навигацию с помощью кнопок «Назад» и «Вперёд» браузера. htmx сохраняет снимок текущего DOM в своем кэше истории, восстанавливая его из этого кэша при навигации.
+
+Возможные значения этого атрибута:
+
+1. `true` — добавляет полученный URL в историю.
+2. `false` — отключает добавление полученного URL, если он в противном случае был бы добавлен из-за наследования или [`hx-boost`](/attributes/hx-boost/).
+3. URL, который будет добавлен в адресную строку. Это может быть относительный или абсолютный URL, в соответствии с [`history.pushState()`](https://developer.mozilla.org/ru/docs/Web/API/History/pushState).
+
+Вот пример:
+
+```html
+<div hx-get="/account" hx-push-url="true">
+  Перейти в мою учётку
+</div>
+```
+
+Это приведет к тому, что htmx сохранит текущий DOM в `localStorage` и добавит URL `/account` в адресную строку браузера.
+
+Вот ещё один пример:
+
+```html
+<div hx-get="/account" hx-push-url="/account/home">
+  Перейти в мою учётку
+</div>
+```
+
+Это добавит URL `/account/home` в историю текущей сессии.
+
+## Примечания
+
+* `hx-push-url` наследуется и может быть размещён на родительском элементе.
+* Заголовок ответа [`HX-Push-Url`](https://htmx.org/headers/hx-push-url/) имеет аналогичное поведение и может переопределить этот атрибут.
+* Атрибут [`hx-history-elt`](/attributes/hx-history-elt/) позволяет указать, какой элемент сохраняется в кэше истории.
