@@ -1,0 +1,47 @@
+---
+title: Атрибут hx-disinherit
+description: Атрибут `hx-disinherit` в htmx позволяет управлять наследованием атрибутов дочерними элементами от родительских. Эта документация объясняет, как выборочно отключать наследование определённых атрибутов htmx или всех атрибутов, обеспечивая более детальный контроль над поведением веб-приложения.
+origin: https://htmx.org/attributes/hx-disinherit/
+sidebar:
+  label: hx-disinherit
+---
+
+По умолчанию htmx автоматически «наследует» многие атрибуты: например, атрибут [hx-target](/attributes/hx-target), размещенный на родительском элементе, будет унаследован всеми дочерними элементами.
+
+Атрибут `hx-disinherit` позволяет управлять этим автоматическим наследованием. Например, можно разместить `hx-boost` на элементе `body` страницы, но переопределить это поведение в конкретной части страницы для реализации специфической логики.
+
+Правила наследования атрибутов в htmx:
+
+* Если `hx-disinherit` указан на родительском элементе:
+  * `hx-disinherit="*"` — полностью отключает наследование всех атрибутов
+  * `hx-disinherit="hx-select hx-get hx-target"` — отключает наследование только указанных атрибутов
+
+```html
+<div hx-boost="true" hx-select="#content" hx-target="#content" hx-disinherit="*">
+  <a href="/page1">Перейти к странице 1</a> <!-- работает с ускорением благодаря указанным выше атрибутам -->
+  <a href="/page2" hx-boost="unset">Перейти к странице 2</a> <!-- без ускорения -->
+  <button hx-get="/test" hx-target="this"></button> <!-- hx-select не наследуется -->
+</div>
+```
+
+```html
+<div hx-boost="true" hx-select="#content" hx-target="#content" hx-disinherit="hx-target">
+  <!-- hx-select автоматически принимает значение родителя; hx-target не наследуется -->
+  <button hx-get="/test"></button>
+</div>
+```
+
+```html
+<div hx-select="#content">
+  <div hx-boost="true" hx-target="#content" hx-disinherit="hx-select">
+    <!-- hx-target автоматически наследуется от родительского значения -->
+    <!-- hx-select не наследуется, так как прямой родитель отключает наследование,
+    даже не указывая сам hx-select -->
+    <button hx-get="/test"></button>
+  </div>
+</div>
+```
+
+## Примечание
+
+* Подробнее о [наследовании атрибутов](/inheritance)
