@@ -1,8 +1,6 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import starlightLinksValidator from 'starlight-links-validator';
-import tailwind from '@astrojs/tailwind';
-import liveCode from 'astro-live-code';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 
@@ -88,12 +86,6 @@ export default defineConfig({
           link: 'learning',
         },
       ],
-    }),
-    liveCode({
-      layout: '@components/LiveCode.astro',
-    }),
-    tailwind({
-      applyBaseStyles: false,
     }),
   ],
   markdown: {
