@@ -71,6 +71,10 @@ export default defineConfig({
           },
         },
         {
+          label: 'Наследование атрибутов',
+          link: 'inheritance',
+        },
+        {
           label: 'Запросы и ответы',
           link: 'requests',
         },
