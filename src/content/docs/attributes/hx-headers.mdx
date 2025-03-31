@@ -1,0 +1,36 @@
+---
+title: Атрибут hx-headers
+description: Атрибут `hx-headers` в htmx позволяет добавлять заголовки к AJAX-запросам.
+origin: https://htmx.org/attributes/hx-headers/
+sidebar:
+  label: hx-headers
+---
+
+Атрибут `hx-headers` позволяет добавлять заголовки к AJAX-запросам.
+
+По умолчанию значение атрибута задаётся в формате [JSON (JavaScript Object Notation)](https://www.json.org/json-ru.html) как список пар «имя-значение».
+
+Если требуется *вычислять* значения, можно добавить префикс `javascript:` или `js:`.
+
+```html wrap
+<!-- Статические заголовки -->
+<div hx-get="/example" hx-headers='{"myHeader": "Мое значение"}'>
+  Получить HTML с пользовательским заголовком в запросе
+</div>
+
+<!-- Динамические заголовки (JS) -->
+<div hx-get="/example" hx-headers='js:{myVal: calculateValue()}'>
+  Получить HTML с динамическим заголовком (вычисляемым через JavaScript)
+</div>
+```
+
+## Вопросы безопасности
+
+* По умолчанию значение `hx-headers` должно быть валидным [JSON](https://developer.mozilla.org/ru/docs/Glossary/JSON) и **не** вычисляется динамически. При использовании префикса `javascript:` учитывайте риски безопасности, особенно при работе с пользовательским вводом (параметры запросов, пользовательский контент), что может привести к уязвимости [Межсайтового скриптинга (XSS)](https://owasp.org/www-community/attacks/xss/).
+
+* Хотя это не является полноценной защитой от [Межсайтовой подделки запросов (CSRF)](https://owasp.org/www-community/attacks/csrf/), атрибут `hx-headers` может использоваться для реализации [защиты от CSRF](https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html). Подробнее см. раздел [Предотвращение CSRF](https://htmx.org/docs/#csrf-prevention).
+
+## Примечания
+
+* `hx-headers` наследуется и может быть указан на родительском элементе.
+* Заголовки, объявленные в дочерних элементах, переопределяют родительские.
