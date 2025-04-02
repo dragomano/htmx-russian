@@ -1,0 +1,42 @@
+---
+title: Атрибут hx-replace-url
+description: Атрибут `hx-replace-url` в htmx позволяет заменить текущий URL в истории браузера.
+origin: https://htmx.org/attributes/hx-replace-url/
+sidebar:
+  label: hx-replace-url
+---
+
+Атрибут `hx-replace-url` позволяет заменить текущий URL в [истории браузера](https://developer.mozilla.org/ru/docs/Web/API/History_API).
+
+Допустимые значения атрибута:
+
+- `true` — заменяет URL в адресной строке браузера на URL запроса
+- `false` — отключает замену URL (даже если она наследуется от родителя)
+- Конкретный URL для замены (относительный или абсолютный, согласно [`history.replaceState()`](https://developer.mozilla.org/ru/docs/Web/API/History/replaceState))
+
+Пример использования:
+
+```html
+<a hx-get="/account" hx-replace-url="true">
+  Перейти в мою учётку
+</a>
+```
+
+Это приведёт к сохранению текущего состояния DOM в `localStorage` и замене URL `/account` в адресной строке браузера.
+
+Другой пример:
+
+```html
+<a hx-get="/account" hx-replace-url="/account/home">
+  Перейти в мою учётку
+</a>
+```
+
+Это заменит URL `/account/home` в адресной строке браузера.
+
+## Примечания
+
+* `hx-replace-url` наследуется и может быть указан на родительском элементе.
+* Заголовок ответа [`HX-Replace-Url`](https://htmx.org/headers/hx-replace-url/) имеет аналогичное поведение и может переопределить этот атрибут.
+* Атрибут [`hx-history-elt`](/attributes/hx-history-elt) позволяет изменить элемент, сохраняемый в кеше истории.
+* Атрибут [`hx-push-url`](/attributes/hx-push-url) имеет схожую функциональность (но используется чаще) — он создает новую запись в истории вместо замены текущей.
