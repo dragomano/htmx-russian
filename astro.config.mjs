@@ -7,6 +7,13 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://htmx.dragomano.ru',
+  i18n: {
+    locales: ["ru"],
+    defaultLocale: "ru",
+    routing: {
+      prefixDefaultLocale: false,
+    }
+  },
   integrations: [
     starlight({
       plugins: [
@@ -17,16 +24,15 @@ export default defineConfig({
       title: 'htmx по-русски',
       description: 'Документация htmx на русском языке.',
       head: [],
-      defaultLocale: 'root',
+/*       defaultLocale: 'root',
       locales: {
         root: {
           label: 'Русский',
           lang: 'ru',
         },
-      },
+      }, */
       components: {
         LastUpdated: './src/components/LastUpdated.astro',
-        SocialIcons: './src/components/SocialIcons.astro',
       },
       customCss: ['./src/styles/custom.css'],
       expressiveCode: {
@@ -83,6 +89,13 @@ export default defineConfig({
           collapsed: true,
           autogenerate: {
             directory: 'attributes',
+          },
+        },
+        {
+          label: 'API',
+          collapsed: true,
+          autogenerate: {
+            directory: 'api',
           },
         },
         {
