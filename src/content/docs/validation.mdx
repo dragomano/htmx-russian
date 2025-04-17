@@ -1,0 +1,32 @@
+---
+title: Валидация
+description: Подробнее о валидации в htmx
+origin: https://htmx.org/docs/#validation
+---
+
+HTMX интегрируется с [HTML5 Validation API](https://developer.mozilla.org/ru/docs/Learn/Forms/Form_validation) и не отправляет запрос для формы, если проверяемое поле ввода невалидно. Это относится как к AJAX-запросам, так и к отправке через WebSocket.
+
+Htmx генерирует события, связанные с валидацией, которые можно использовать для подключения кастомной логики проверки и обработки ошибок:
+
+* `htmx:validation:validate` — вызывается до вызова метода `checkValidity()` элемента. Может использоваться для добавления пользовательской логики валидации.
+* `htmx:validation:failed` — вызывается, когда `checkValidity()` возвращает `false`, указывая на невалидный ввод.
+* `htmx:validation:halted` — вызывается, когда запрос не отправлен из-за ошибок валидации. Конкретные ошибки можно найти в объекте `event.detail.errors`.
+
+Элементы, не являющиеся формами, по умолчанию не проходят валидацию перед отправкой запросов, но вы можете включить её, установив атрибут [`hx-validate`](/attributes/hx-validate) в значение `true`.
+
+### Пример валидации
+
+Вот пример поля ввода, которое использует атрибут [`hx-on`](/attributes/hx-on) для обработки события `htmx:validation:validate` и требует, чтобы значение поля было `foo`:
+
+```html
+<form id="example-form" hx-post="/test">
+  <input name="example"
+  onkeyup="this.setCustomValidity('') // сбрасываем валидацию при вводе"
+  hx-on:htmx:validation:validate="if(this.value != 'foo') {
+    this.setCustomValidity('Введите значение foo') // задаем ошибку валидации
+    htmx.find('#example-form').reportValidity()    // сообщаем о проблеме
+  }">
+</form>
+```
+
+Вся клиентская валидация должна быть повторена на серверной стороне, так как её можно обойти.
