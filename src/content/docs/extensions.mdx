@@ -1,0 +1,88 @@
+---
+title: Расширения
+description: Подробнее о расширениях в htmx
+origin: https://htmx.org/docs/#extensions
+---
+
+HTMX предоставляет механизм [расширений](https://htmx.org/extensions/), который позволяет настраивать поведение библиотеки.
+Расширения [создаются на JavaScript](https://htmx.org/extensions/building) и затем подключаются через атрибут [`hx-ext`](/attributes/hx-ext).
+
+### Основные расширения
+
+Htmx включает несколько «базовых» расширений, поддерживаемых разработчиками библиотеки:
+
+* [head-support](https://htmx.org/extensions/head-support) — объединение содержимого тега `<head>` (стилей и др.) при HTMX-запросах
+* [htmx-1-compat](https://htmx.org/extensions/htmx-1-compat) — восстанавливает поведение и настройки HTMX 1.x
+* [idiomorph](https://htmx.org/extensions/idiomorph) — реализует стратегию замены контента `morph` через библиотеку Idiomorph
+* [preload](https://htmx.org/extensions/preload) — предзагрузка контента для повышения производительности
+* [response-targets](https://htmx.org/extensions/response-targets) — выбор элементов для обновления на основе HTTP-кодов ответа (например, `404`)
+* [sse](https://htmx.org/extensions/sse) — поддержка [событий, отправляемых сервером](https://developer.mozilla.org/ru/docs/Web/API/Server-sent_events/Using_server-sent_events)
+* [ws](https://htmx.org/extensions/ws) — работа с [WebSocket](https://developer.mozilla.org/ru/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications)
+
+Полный список доступных расширений представлен на странице [Расширения](https://htmx.org/extensions).
+
+### Установка расширений
+
+Самый быстрый способ подключить расширения HTMX, созданные сообществом — загрузить их через CDN. Важно всегда подключать основную библиотеку HTMX **перед** расширениями и [активировать расширение](#активация-расширений).
+
+Например, для использования расширения [response-targets](https://htmx.org/extensions/response-targets) добавьте в `<head>` следующий код:
+
+```html wrap
+<head>
+  <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/htmx-ext-response-targets@2.0.2" integrity="sha384-T41oglUPvXLGBVyRdZsVRxNWnOOqCynaPubjUVjxhsjFTKrFJGEMm3/0KGmNQ+Pg" crossorigin="anonymous"></script>
+</head>
+<body hx-ext="extension-name">
+  ...
+```
+
+Неминифицированная версия также доступна по адресу `https://unpkg.com/htmx-ext-имя-расширения/dist/имя-расширения.js` (замените `имя-расширения` на название расширения).
+
+Хотя подход с использованием CDN прост, стоит рассмотреть возможность [не использовать CDN в продакшене](https://blog.wesleyac.com/posts/why-not-javascript-cdn). Следующий по простоте способ установки расширений htmx — просто скопировать их в ваш проект. Скачайте расширение с `https://unpkg.com/htmx-ext-имя-расширения` (замените `имя-расширения` на имя нужного расширения), например, https://unpkg.com/htmx-ext-response-targets. Затем поместите его в соответствующую директорию вашего проекта и подключите там, где это необходимо, с помощью тега `<script>`.
+
+Для сборок в стиле npm вы можете установить расширения htmx через [npm](https://www.npmjs.com/) (замените `имя-расширения` на имя нужного расширения):
+
+```shell
+npm install htmx-ext-extension-name
+```
+
+После установки вам потребуется использовать соответствующие инструменты для сборки `node_modules/htmx-ext-имя-расширения/dist/имя-расширения.js` (или `.min.js`). Например, вы можете собрать расширение вместе с основной библиотекой htmx из `node_modules/htmx.org/dist/htmx.js` и вашим проектно-специфичным кодом.
+
+Если вы используете сборщик для управления JavaScript-кодом (например, Webpack, Rollup):
+- Установите `htmx.org` и `htmx-ext-имя-расширения` через npm (замените `имя-расширения` на имя нужного расширения)
+- Импортируйте оба пакета в ваш `index.js`:
+
+```js
+import `htmx.org`;
+import `htmx-ext-имя-расширения`; // замените `имя-расширения` на имя нужного расширения
+```
+
+:::note
+[Idiomorph](https://htmx.org/extensions/idiomorph) не следует соглашению об именовании расширений htmx. Используйте `idiomorph` вместо `htmx-ext-idiomorph`. Например: `https://unpkg.com/idiomorph` или `npm install idiomorph`.
+:::
+
+:::note
+Расширения сообщества, размещённые вне этого репозитория, могут иметь другие инструкции по установке. Пожалуйста, проверьте соответствующий репозиторий для получения руководства по настройке.
+:::
+
+### Активация расширений
+
+Чтобы включить расширение, добавьте атрибут `hx-ext="имя-расширения"` к тегу `<body>` или другому HTML-элементу (замените `имя-расширения` на название нужного расширения). Расширение будет применено ко всем дочерним элементам.
+
+Следующий пример показывает, как активировать расширение [response-targets](https://htmx.org/extensions/response-targets), позволяющее указывать разные целевые элементы для замены в зависимости от HTTP-кода ответа:
+
+```html
+<body hx-ext="response-targets">
+  ...
+  <button hx-post="/register" hx-target="#response-div" hx-target-404="#not-found">
+      Зарегистрироваться!
+  </button>
+  <div id="response-div"></div>
+  <div id="not-found"></div>
+  ...
+</body>
+```
+
+### Создание расширений
+
+Если вы хотите создать собственное расширение для HTMX, ознакомьтесь с [документацией по разработке расширений](https://htmx.org/extensions/building).
