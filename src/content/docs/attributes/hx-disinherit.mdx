@@ -16,7 +16,7 @@ sidebar:
   * `hx-disinherit="*"` — полностью отключает наследование всех атрибутов
   * `hx-disinherit="hx-select hx-get hx-target"` — отключает наследование только указанных атрибутов
 
-```html
+```html wrap
 <div hx-boost="true" hx-select="#content" hx-target="#content" hx-disinherit="*">
   <a href="/page1">Перейти к странице 1</a> <!-- работает с ускорением благодаря указанным выше атрибутам -->
   <a href="/page2" hx-boost="unset">Перейти к странице 2</a> <!-- без ускорения -->
