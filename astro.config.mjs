@@ -3,34 +3,36 @@ import starlight from '@astrojs/starlight';
 import starlightLinksValidator from 'starlight-links-validator';
 import { rehypeHeadingIds } from '@astrojs/markdown-remark';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import starlightThemeNova from 'starlight-theme-nova';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://htmx.dragomano.ru',
-  i18n: {
-    locales: ["ru"],
-    defaultLocale: "ru",
-    routing: {
-      prefixDefaultLocale: false,
-    }
-  },
   integrations: [
     starlight({
       plugins: [
         starlightLinksValidator({
           errorOnRelativeLinks: false,
         }),
+        starlightThemeNova({
+          nav: [
+            {
+              label: 'API',
+              href: '/api',
+            },
+          ]
+        }),
       ],
       title: 'htmx по-русски',
       description: 'Документация htmx на русском языке.',
       head: [],
-/*       defaultLocale: 'root',
+      defaultLocale: 'root',
       locales: {
         root: {
           label: 'Русский',
           lang: 'ru',
         },
-      }, */
+      },
       components: {
         LastUpdated: './src/components/LastUpdated.astro',
       },
@@ -50,9 +52,9 @@ export default defineConfig({
         replacesTitle: true,
         alt: 'Логотип htmx',
       },
-      social: {
-        github: 'https://github.com/dragomano/htmx-russian',
-      },
+      social: [
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/dragomano/htmx-russian' },
+      ],
       editLink: {
         baseUrl: 'https://github.com/dragomano/htmx-russian/edit/main/',
       },
@@ -83,6 +85,14 @@ export default defineConfig({
         {
           label: 'Запросы и ответы',
           link: 'requests',
+        },
+        {
+          label: 'Валидация',
+          link: 'validation',
+        },
+        {
+          label: 'Расширения',
+          link: 'extensions',
         },
         {
           label: 'Атрибуты',
