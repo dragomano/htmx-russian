@@ -55,12 +55,20 @@ export default defineConfig({
                   link: 'requests',
                 },
                 {
+                  label: 'Анимации',
+                  link: 'animations',
+                },
+                {
                   label: 'Валидация',
                   link: 'validation',
                 },
                 {
                   label: 'Расширения',
                   link: 'extensions',
+                },
+                {
+                  label: 'События и логирование',
+                  link: 'events',
                 },
                 {
                   label: 'Обучающие статьи и ролики',
