@@ -1,0 +1,91 @@
+---
+title: Сторонний JavaScript
+description: Подробнее о взаимодействии htmx со сторонними библиотеками
+origin: https://htmx.org/docs/#3rd-party
+---
+
+Htmx достаточно хорошо интегрируется со сторонними библиотеками. Если библиотека генерирует события в DOM, вы можете использовать эти события для инициирования запросов в htmx.
+
+Хороший пример такого взаимодействия — [демо SortableJS](https://htmx.org/examples/sortable/):
+
+```html
+<form class="sortable" hx-post="/items" hx-trigger="end">
+  <div class="htmx-indicator">Обновление...</div>
+  <div><input type='hidden' name='item' value='1'/>Элемент 1</div>
+  <div><input type='hidden' name='item' value='2'/>Элемент 2</div>
+  <div><input type='hidden' name='item' value='2'/>Элемент 3</div>
+</form>
+```
+
+В случае с Sortable, как и с большинством JavaScript-библиотек, вам нужно инициализировать контент в определённый момент.
+
+На jQuery это можно сделать следующим образом:
+
+```js
+$(document).ready(function() {
+  var sortables = document.body.querySelectorAll(".sortable");
+  for (var i = 0; i < sortables.length; i++) {
+    var sortable = sortables[i];
+    new Sortable(sortable, {
+      animation: 150,
+      ghostClass: 'blue-background-class'
+    });
+  }
+});
+```
+
+В htmx вместо этого используется функция `htmx.onLoad`, которая позволяет выбирать только из вновь загруженного контента, а не из всего документа:
+
+```js
+htmx.onLoad(function(content) {
+  var sortables = content.querySelectorAll(".sortable");
+  for (var i = 0; i < sortables.length; i++) {
+    var sortable = sortables[i];
+    new Sortable(sortable, {
+      animation: 150,
+      ghostClass: 'blue-background-class'
+    });
+  }
+})
+```
+
+Это гарантирует, что по мере добавления нового контента в DOM через htmx, элементы Sortable будут корректно инициализированы.
+
+Если JavaScript добавляет в DOM контент, содержащий атрибуты htmx, необходимо убедиться,
+что этот контент инициализирован с помощью функции `htmx.process()`.
+
+Например, при получении данных через API `fetch` и их размещении в div-элементе,
+если HTML содержит атрибуты htmx, потребуется добавить вызов `htmx.process()` следующим образом:
+
+```js
+let myDiv = document.getElementById('my-div')
+fetch('http://example.com/movies.json')
+  .then(response => response.text())
+  .then(data => { myDiv.innerHTML = data; htmx.process(myDiv); } );
+```
+
+Некоторые сторонние библиотеки создают контент из HTML-шаблонов. Например, Alpine JS использует атрибут `x-if`
+в шаблонах для условного добавления контента. Изначально такие шаблоны не являются частью DOM и,
+если они содержат атрибуты htmx, потребуют вызова `htmx.process()` после их загрузки. В следующем
+примере используется функция `$watch` из Alpine для отслеживания изменения значения, которое должно
+активировать отображение контента по условию:
+
+```html
+<div x-data="{show_new: false}"
+  x-init="$watch('show_new', value => {
+    if (show_new) {
+      htmx.process(document.querySelector('#new_content'))
+    }
+  })">
+  <button @click = "show_new = !show_new">Переключить новое содержимое</button>
+  <template x-if="show_new">
+    <div id="new_content">
+      <a hx-get="/server/newstuff" href="#">Новый кликабельный элемент</a>
+    </div>
+  </template>
+</div>
+```
+
+#### Веб-компоненты
+
+Примеры интеграции htmx с веб-компонентами доступны на странице [Примеры веб-компонентов](https://htmx.org/examples/web-components/).
