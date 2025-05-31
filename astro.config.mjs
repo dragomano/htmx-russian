@@ -71,6 +71,26 @@ export default defineConfig({
                   link: 'events',
                 },
                 {
+                  label: 'Отладка',
+                  link: 'debugging',
+                },
+                {
+                  label: 'Скриптинг',
+                  link: 'scripting',
+                },
+                {
+                  label: 'Сторонний JavaScript',
+                  link: '3rd-party',
+                },
+                {
+                  label: 'Кэширование',
+                  link: 'caching',
+                },
+                {
+                  label: 'Безопасность',
+                  link: 'security',
+                },
+                {
                   label: 'Обучающие статьи и ролики',
                   link: 'learning',
                 },
