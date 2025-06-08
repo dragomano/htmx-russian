@@ -9,15 +9,15 @@
   "dependencies": {
     "@astro-community/astro-embed-youtube": "^0.5.6",
     "@astrojs/markdown-remark": "^6.3.2",
-    "@astrojs/sitemap": "^3.4.0",
+    "@astrojs/sitemap": "^3.4.1",
     "@astrojs/starlight": "^0.34.3",
-    "astro": "^5.8.1",
+    "astro": "^5.9.1",
     "rehype-autolink-headings": "^7.1.0",
     "sharp": "^0.34.2",
     "starlight-links-validator": "^0.16.0",
     "starlight-package-managers": "^0.11.0",
     "starlight-showcases": "^0.3.0",
     "starlight-sidebar-topics": "^0.6.0",
-    "starlight-theme-nova": "^0.7.2"
+    "starlight-theme-nova": "^0.7.4"
   }
 }
